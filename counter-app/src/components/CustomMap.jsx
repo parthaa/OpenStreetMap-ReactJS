@@ -35,18 +35,36 @@ MyMarkersList.propTypes = {
 
 export default class CustomMap extends Component {
   state = {
-    lat: 51.505,
-    lng: -0.09,
-    zoom: 13
+    lat: 45.6982642,
+    lng: 9.6772698,
+    zoom: 13,
+    markers: []
   };
+
+  constructor() {
+    super();
+    // const { markers } = this.props;
+  }
 
   render() {
     const center = [this.state.lat, this.state.lng];
 
     const markers = [
-      { key: "marker1", position: [51.5, -0.1], children: "My first popup" },
-      { key: "marker2", position: [51.51, -0.1], children: "My second popup" },
-      { key: "marker3", position: [51.49, -0.05], children: "My third popup" }
+      {
+        key: "marker1",
+        position: [45.69836455, 9.6472798],
+        children: "Lampione rotto"
+      },
+      {
+        key: "marker2",
+        position: [45.6980459, 9.6872748],
+        children: "Segnalazione: tombino rotto"
+      },
+      {
+        key: "marker3",
+        position: [45.69856455, 9.6570798],
+        children: "Segnalazione: rumore di notte"
+      }
     ];
     return (
       <Map center={center} zoom={this.state.zoom}>

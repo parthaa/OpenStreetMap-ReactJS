@@ -28,6 +28,8 @@ export default class App extends React.Component {
     });
   };
 
+  componentDidMount() {}
+
   componentDidUpdate() {
     this.listenForNewPins();
   }
