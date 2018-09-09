@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "./components/Map";
+import CustomMap from "./components/CustomMap";
 import NavBar from "./components/NavBar";
 import firebase from "./Firebase";
 
@@ -9,7 +9,6 @@ export default class App extends React.Component {
   };
 
   listenForNewPins = () => {
-    var self = this;
     console.log("listening for new segnalazioni...");
     var ref = firebase.database().ref("segnalazioni");
     ref.on("child_added", function(snapshot) {
@@ -23,20 +22,22 @@ export default class App extends React.Component {
         if (typeof childData.luogo === "undefined") {
           console.log("undefined, ignoring...");
         } else {
-          self.setState({ markers: [...this.state.markers, childData] });
+          this.setState({ markers: [...this.state.markers, childData] });
         }
       });
     });
   };
 
-  render() {
-    console.log("rendering app...");
+  componentDidUpdate() {
     this.listenForNewPins();
+  }
+
+  render() {
     const { markers } = this.state;
     return (
       <div>
         <NavBar />
-        <Map markers={markers} />
+        <CustomMap markers={markers} />
       </div>
     );
   }
