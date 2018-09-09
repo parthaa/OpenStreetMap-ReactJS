@@ -12,6 +12,17 @@ export default class Map extends React.Component {
     };
   }
 
+  _renderMarker = () => {
+    const { markers } = this.props;
+    return markers.map(item => {
+      return (
+        <Marker position={[item.lat, item.lng]} key={item.popup}>
+          <Popup>{item.popup}</Popup>
+        </Marker>
+      );
+    });
+  };
+
   render() {
     const position = [this.state.lat, this.state.lng];
     return (
@@ -20,11 +31,7 @@ export default class Map extends React.Component {
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position}>
-          <Popup>
-            Segnalazine: lampione rotto. <br /> Segnalato 3 giorni fa.
-          </Popup>
-        </Marker>
+        {this._renderMarker()}
       </LeafletMap>
     );
   }
