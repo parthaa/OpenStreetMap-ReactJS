@@ -3,35 +3,25 @@ const ReactLeaflet = require("react-leaflet");
 const { Map: LeafletMap, TileLayer, Marker, Popup } = ReactLeaflet;
 
 export default class Map extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      lat: 45.6982642,
-      lng: 9.6772698,
-      zoom: 13
-    };
-  }
-
-  _renderMarker = () => {
-    const { markers } = this.props;
-    return markers.map(item => {
+  renderMarker() {
+    return this.state.markers.map(item => {
       return (
-        <Marker position={[item.lat, item.lng]} key={item.popup}>
-          <Popup>{item.popup}</Popup>
+        <Marker position={[item.lat, item.lng]} key={item.commenti}>
+          <Popup>{item.commenti}</Popup>
         </Marker>
       );
     });
-  };
+  }
 
   render() {
-    const position = [this.state.lat, this.state.lng];
+    this.renderMarker();
+    const centroBergamo = [45.6982642, 9.6772698];
     return (
-      <LeafletMap center={position} zoom={this.state.zoom}>
+      <LeafletMap center={centroBergamo} zoom={13}>
         <TileLayer
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
-        {this._renderMarker()}
       </LeafletMap>
     );
   }

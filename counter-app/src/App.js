@@ -5,18 +5,7 @@ import firebase from "./Firebase";
 
 export default class App extends React.Component {
   state = {
-    markers: [
-      {
-        lat: 45.6982642,
-        lng: 9.6772698,
-        popup: "sono un popup"
-      },
-      {
-        lat: 43.6982648,
-        lng: 9.6772698,
-        popup: "sono un ciao"
-      }
-    ]
+    markers: []
   };
 
   listenForNewPins = () => {
@@ -31,18 +20,10 @@ export default class App extends React.Component {
         var childData = childSnapshot.val();
         console.log("CHILD DATA", childData);
 
-        var test = {};
-
-        if (typeof childData === "undefined") {
+        if (typeof childData.luogo === "undefined") {
           console.log("undefined, ignoring...");
         } else {
-          console.log("defined, appending to state array");
-          self.setState(prevState => {
-            return;
-            {
-              markers: [...prevState.markers, test];
-            }
-          });
+          self.setState({ markers: [...this.state.markers, childData] });
         }
       });
     });
